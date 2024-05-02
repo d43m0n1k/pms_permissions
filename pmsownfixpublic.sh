@@ -27,12 +27,42 @@ echo "drag and drop on Linux Desktop. The last"
 echo "option is Lockdown, my attempt at making"
 echo " the server more secure, without losing "
 echo " the ability to serve media. Be safe :) "
+echo
+
+sleep 3
+
+echo
+
+# Prompt user to view license information
+echo "Press 'i' to view the license information..."
+read -n 1 -t 7 -p "" input
+
+if [[ "$input" == "i" || "$input" == "I" ]]; then
+    # Copyright banner
+    cat << "EOF"
+################################################################################
+# Copyright (C) 2024 d43m0n1k
+#
+# This program comes with ABSOLUTELY NO WARRANTY.
+# This is free software, and you are welcome to redistribute it
+# under certain conditions. See the GNU General Public License
+# version 3 or later for details: https://www.gnu.org/licenses/gpl-3.0.html
+#
+# For more information, visit: https://github.com/d43m0n1k/pms_permissions
+################################################################################
+EOF
+else
+    echo
+    echo -e "\nSkipping license conditions..."
+fi
 
 sleep 3
 
 # Check if current user is in the plex group
 if getent group plex | cut -d':' -f4 | grep -qw "$(whoami)"; then
+    echo
     echo "Plex member confirmed, moving on.."
+    echo
 else
     # Prompt user to add current user to the plex group
     read -p "Not a plex group member. Do you want to add the current user to the Plex group? (Y/N): " add_user_to_group
@@ -46,7 +76,8 @@ fi
 sleep 3
 
 # Check if plex user is already in the plex group
-if getent group plex | grep -q "\bplex\b"; then
+if groups plex | grep -q '\bplex\b'; then
+    echo
     echo "Confirmed plex user is in the Plex group."
 else
     echo "Adding plex user to plex group"
@@ -80,7 +111,7 @@ case "$mode" in
         files_permissions="664"
         owner="$(whoami)"
         group="plex"
-        disclaimer="Edit mode: Plex group members can edit directories. Exercise caution when making changes."
+        disclaimer="Edit mode: Current user can edit directories and files. Exercise caution when making changes."
         ;;
     [Ll]* )
         # Lockdown mode: Restrict editing permissions for all users, including Plex
@@ -107,7 +138,7 @@ sleep 3
 # echo "Mode: $mode"
 
 # Prompt user for confirmation
-read -p "Do you want to change permissions for directories and files? (Y/N): " answer
+read -p "Confirm you want to change permissions for your Plex Media's directories and files? (Y/N): " answer
 if [[ $answer != "Y" && $answer != "y" ]]; then
     echo "Exiting script."
     exit 0
