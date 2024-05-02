@@ -9,14 +9,14 @@ This script automates the process of setting file and folder permissions for you
 1. **Clone the Repository**: Clone this repository to your local machine.
 
     ```bash
-    git clone <repository_url>
+    git clone "https://github.com/d43m0n1k/pms_permissions"
     ```
 
-2. **Open the Script**: Navigate to the cloned directory and open the `plex_permissions.sh` script in a text editor.
+2. **Open the Script**: Navigate to the cloned directory and open the `pmsownfixpublic.sh` script in a text editor.
 
     ```bash
-    cd plex_permissions
-    nano plex_permissions.sh
+    cd pms_permissions
+    nano pmsownfixpublic.sh
     ```
 
 3. **Edit Media Paths**: In the script, locate the `directories` array and edit it to include the paths of your Plex media directories. These are the directories where your media files are stored.
@@ -37,7 +37,7 @@ This script automates the process of setting file and folder permissions for you
 5. **Run the Script**: Execute the script and follow the prompts to select the desired mode (Baseline, Edit, or Lockdown) and set the permissions accordingly.
 
     ```bash
-    bash plex_permissions.sh
+    bash pmsownfixpublic.sh
     ```
 
 ## Disclaimer
