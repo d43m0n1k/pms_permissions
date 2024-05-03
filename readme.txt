@@ -1,5 +1,3 @@
-
-
 # Plex Media Permissions Script
 
 This script automates the process of setting file and folder permissions for your Plex Media Server. It offers three modes: Baseline, Edit, and Lockdown, each serving different needs depending on your security and accessibility requirements.
@@ -34,13 +32,18 @@ This script automates the process of setting file and folder permissions for you
 
 4. **Save and Close**: After editing the paths, save the script and close the text editor.
 
-5. **Run the Script**: Execute the script and follow the prompts to select the desired mode (Baseline, Edit, or Lockdown) and set the permissions accordingly.
+5. **Make the Script Executable**: Before running the script, you need to make it executable. You can do this using the `chmod` command.
 
     ```bash
-    bash pmsownfixpublic.sh
+    chmod +x pmsownfixpublic.sh
+    ```
+
+6. **Run the Script**: Execute the script and follow the prompts to select the desired mode (Baseline, Edit, or Lockdown) and set the permissions accordingly.
+
+    ```bash
+    ./pmsownfixpublic.sh
     ```
 
 ## Disclaimer
 
 Please review the permissions settings carefully before applying them. Incorrect permissions may affect the functionality of your Plex Media Server.
-
