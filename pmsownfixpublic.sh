@@ -62,7 +62,7 @@ sleep 3
 if getent group plex | cut -d':' -f4 | grep -qw "$(whoami)"; then
     echo
     echo "Plex member confirmed, moving on.."
-    echo
+
 else
     # Prompt user to add current user to the plex group
     read -p "Not a plex group member. Do you want to add the current user to the Plex group? (Y/N): " add_user_to_group
@@ -85,7 +85,7 @@ else
 fi
 
 sleep 3
-
+echo
 # Define the base directories you want to modify
 directories=(
         "/path/to/your/media/directory1"
@@ -144,6 +144,10 @@ if [[ $answer != "Y" && $answer != "y" ]]; then
     exit 0
 fi
 
+# Initialize counters for files and directories
+file_count=0
+dir_count=0
+
 # Loop through each directory and change ownership,
 # directories permissions, and files permissions based on mode
 for dir in "${directories[@]}"; do
@@ -160,18 +164,31 @@ for dir in "${directories[@]}"; do
 
     # Set permissions for directories
     sudo find "$dir" -type d -exec chmod "$directories_permissions" {} +
+    dir_count=$((dir_count + 1))
 
     # Debug statement to check if directory permissions are set
     echo "Setting permissions for files in $dir to $files_permissions"
 
     # Set permissions for files
     sudo find "$dir" -type f -exec chmod "$files_permissions" {} +
+    file_count=$((file_count + 1))
 
     # Debug statement to indicate completion of processing
     echo "Finished processing $dir"
+
+    # Count the number of files and directories processed
+    dir_count_temp=$(find "$dir" -type d | wc -l)
+    file_count_temp=$(find "$dir" -type f | wc -l)
+    dir_count=$((dir_count + dir_count_temp))
+    file_count=$((file_count + file_count_temp))
 done
 
 sleep 3 # Add a delay to allow script to wrap up
+
+# Display total files and directories processed
 echo "Permissions setup successful."
+echo "Total directories processed: $dir_count"
+echo "Total files processed: $file_count"
+
 sleep 3   # Add a delay to allow script to wrap up
 exit 0
