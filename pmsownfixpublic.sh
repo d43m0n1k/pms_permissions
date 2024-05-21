@@ -29,7 +29,7 @@ echo " the server more secure, without losing "
 echo " the ability to serve media. Be safe :) "
 echo
 
-sleep 3
+sleep 2
 
 echo
 
@@ -56,7 +56,7 @@ else
     echo -e "\nSkipping license conditions..."
 fi
 
-sleep 3
+sleep 2
 
 # Check if current user is in the plex group
 if getent group plex | cut -d':' -f4 | grep -qw "$(whoami)"; then
@@ -73,7 +73,7 @@ else
 
 fi
 
-sleep 3
+sleep 2
 
 # Check if plex user is already in the plex group
 if groups plex | grep -q '\bplex\b'; then
@@ -84,7 +84,7 @@ else
     sudo usermod -aG plex plex
 fi
 
-sleep 3
+sleep 2
 echo
 # Define the base directories you want to modify
 directories=(
@@ -127,10 +127,12 @@ case "$mode" in
         ;;
 esac
 
+echo 
+
 # Display disclaimer based on mode selected
 echo "$disclaimer"
 
-sleep 3
+sleep 2
 
 # Uncomment the following lines for debug information
 # echo "Current user groups:"
